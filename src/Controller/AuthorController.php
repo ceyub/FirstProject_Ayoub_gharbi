@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AuthorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -71,6 +72,10 @@ public function listAuthors(): Response
         'authors' => $authors,
     ]);
 }
-
-
+#[Route('/showAll', name: 'showAll')]
+public function showAll(AuthorRepository $authorRepository): Response{
+    $authors=$authorRepository->findAll();
+   return $this->render("author/showAll.html.twig",['list'=>$authors]);
+}
+    
 }

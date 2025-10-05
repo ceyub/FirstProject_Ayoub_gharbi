@@ -1,0 +1,19 @@
+<h1>Author list</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i in list %}
+        <tr>
+            <td>{{ i.username }}</td>
+            <td>{{ i.email }}</td>
+            <td>update , delete and details</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
