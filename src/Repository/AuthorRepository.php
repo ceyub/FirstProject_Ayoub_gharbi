@@ -40,4 +40,22 @@ class AuthorRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function ShowAllAuthors(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.username', 'ASC')
+            ->andWhere('a.email : LIKE val ')
+            ->setParameter('val', ' %a%')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAuthorsWithMoreThanXBooks(int $minBooks)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.nb_books > :minBooks')
+            ->setParameter('minBooks', $minBooks)
+            ->orderBy('a.nb_books', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

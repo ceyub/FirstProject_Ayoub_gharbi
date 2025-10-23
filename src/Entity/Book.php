@@ -1,40 +1,106 @@
 <?php
+
 namespace App\Entity;
 
+use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
- */
+#[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
 {
-    /** @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer") */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /** @ORM\Column(type="string", length=255) */
-    private $title;
+    #[ORM\Column(length: 255)]
+    private ?string $ref = null;
 
-    /** @ORM\Column(type="string", length=50) */
-    private $category;
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
 
-    /** @ORM\Column(type="boolean") */
-    private $published = true;
+    #[ORM\Column]
+    private ?bool $published = true;
 
-    /** @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
-     *  @ORM\JoinColumn(nullable=false)
-     */
-    private $author;
+    #[ORM\Column(length: 255)]
+    private ?string $category = null;
 
-    public function getId(): ?int { return $this->id; }
-    public function getTitle(): ?string { return $this->title; }
-    public function setTitle(string $t): self { $this->title = $t; return $this; }
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $publicationDate = null;
 
-    public function getCategory(): ?string { return $this->category; }
-    public function setCategory(string $c): self { $this->category = $c; return $this; }
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Author $author = null;
 
-    public function isPublished(): bool { return $this->published; }
-    public function setPublished(bool $p): self { $this->published = $p; return $this; }
+    // Getters et Setters
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    public function getAuthor(): ?Author { return $this->author; }
-    public function setAuthor(?Author $a): self { $this->author = $a; return $this; }
+    public function getRef(): ?string
+    {
+        return $this->ref;
+    }
+
+    public function setRef(string $ref): static
+    {
+        $this->ref = $ref;
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): static
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): static
+    {
+        $this->published = $published;
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): static
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getPublicationDate(): ?\DateTimeInterface
+    {
+        return $this->publicationDate;
+    }
+
+    public function setPublicationDate(\DateTimeInterface $publicationDate): static
+    {
+        $this->publicationDate = $publicationDate;
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): static
+    {
+        $this->author = $author;
+        return $this;
+    }
 }

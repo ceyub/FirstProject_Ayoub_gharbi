@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reader{% endblock %}
+
+{% block body %}
+    <h1>Reader</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reader.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ reader.name }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ reader.email }}</td>
+            </tr>
+            <tr>
+                <th>Membership_date</th>
+                <td>{{ reader.membershipDate ? reader.membershipDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reader_index') }}">back to list</a>
+
+    <a href="{{ path('app_reader_edit', {'id': reader.id}) }}">edit</a>
+
+    {{ include('reader/_delete_form.html.twig') }}
+{% endblock %}
